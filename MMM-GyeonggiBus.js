@@ -23,6 +23,7 @@ function getInfo() {
             }
     };
     xmlhttp.open("GET", url+queryParams, true);
+    xmlhttp.setRequestHeader("Access-Control-Allow-Origin", "*");    
     xmlhttp.send();
 
     /*
