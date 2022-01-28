@@ -13,15 +13,18 @@ function getInfo() {
     var queryParams = '?' + encodeURIComponent('serviceKey') + '=NFWVvMo3R53H4I5m71D%2BMOCSUqYjplfDTnrx%2B6wlo3p0ajXCBhWg%2FkAqPZZ%2F43Jt4Scnq%2Fm7Zv0FicnS%2BoEZEQ%3D%3D'; /* Service Key*/
     queryParams += '&' + encodeURIComponent('stationId') + '=' + encodeURIComponent('200000078'); /* */
 
-    request({
-        url: url + queryParams,
-        method: 'GET'
-    }, function (error, response, body) {
-        console.log('Status', response.statusCode);
-        console.log('Headers', JSON.stringify(response.headers));
-        console.log('Reponse received', body);
-        val = body;
-    });
+    xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                console.log(this.responseText);
+                var myArr = JSON.parse(this.responseText);
+                console.log(myArr);
+                val = myArr;
+                console.log(val);
+            }
+    };
+    xmlhttp.open("GET", url+queryParams, true);
+    xmlhttp.send();
+
     /*
 			xmlhttp.onreadystatechange = function() {
 					if (this.readyState == 4 && this.status == 200) {
