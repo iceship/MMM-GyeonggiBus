@@ -1,19 +1,42 @@
 const NodeHelper = require("node_helper");
+const request = require('request');
 
 module.exports = NodeHelper.create({
     start: function() {
         console.log("Starting node helper: " + this.name);
-        this.sendSocketNotification("starting node helper", "");
+        //this.sendSocketNotification("starting node helper", "");       
     },
 
-    socketNotificationReceived: function(query, parameters) {
-        var self = this;
-        console.log("Query: " + query + " Parameters: " + parameters);
+    socketNotificationReceived: function(notification, payload) {
+        console.log("Query: " + notification + " Parameters: " + payload);
+        switch (notification) {
+            case "GET_BUS_DATA":
+                let self = this;
+                self.getData(payload);
+                break;
+        }
     },
 
-    // returns all reported train statuses for a given station
-    getStationStatusCallback: function(data, direction) {
-        console.log("getStationStatusCallback");
-        var self = this;
-    }
+
+    getData: async function (payload) {
+        let self = this;
+        console.log("getData:");
+        console.log(payload);
+
+        var queryParams = '?' + encodeURIComponent('serviceKey') + '=' + payload.config.serviceKey; /* Service Key*/
+        queryParams += '&' + encodeURIComponent('stationId') + '=' + encodeURIComponent(payload.config.stationId); /* */
+        var url = payload.config.apiBase + queryParams;
+        console.log("url:" + url);
+        request({
+            url: url,
+            method: 'GET'
+        }, function (error, response, body) {
+            console.log('Status', response.statusCode);
+            console.log('Headers', JSON.stringify(response.headers));
+            //console.log('Reponse received', body);
+            self.sendSocketNotification("BUS_DATA", body);
+        });
+    },
+
+
 });

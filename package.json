@@ -1,0 +1,25 @@
+{
+  "name": "mmm-gyeonggibus",
+  "version": "1.0.0",
+  "description": "Gyeonggi-do Bus for MagicMirror",
+  "main": "MMM-GyeonggiBus.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iceship/MMM-GyeonggiBus.git"
+  },
+  "keywords": [
+    "MagicMirror"
+  ],
+  "author": "Juil Kim",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/iceship/MMM-GyeonggiBus/issues"
+  },
+  "homepage": "https://github.com/iceship/MMM-GyeonggiBus#readme",
+  "dependencies": {
+    "request": "^2.88.2"
+  }
+}
