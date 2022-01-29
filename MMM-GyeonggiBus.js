@@ -10,7 +10,7 @@ var val;
 function getInfo() {
 	var xmlhttp = new XMLHttpRequest();
     var url = "http://apis.data.go.kr/6410000/busarrivalservice/getBusArrivalList";
-    var queryParams = '?' + encodeURIComponent('serviceKey') + '=NFWVvMo3R53H4I5m71D%2BMOCSUqYjplfDTnrx%2B6wlo3p0ajXCBhWg%2FkAqPZZ%2F43Jt4Scnq%2Fm7Zv0FicnS%2BoEZEQ%3D%3D'; /* Service Key*/
+    var queryParams = '?' + encodeURIComponent('serviceKey') + ''; /* Service Key*/
     queryParams += '&' + encodeURIComponent('stationId') + '=' + encodeURIComponent('200000078'); /* */
 
     xmlhttp.onreadystatechange = function() {
