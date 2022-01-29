@@ -67,6 +67,7 @@ Module.register("MMM-GyeonggiBus", {
             case "BUS_DATA":
                 this.loaded = true;
                 console.log("NotificationReceived:" + notification);
+                console.log(payload);
                 this.updateDom();
                 break;
             case "BUS_DATA_ERROR":
