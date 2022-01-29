@@ -21,7 +21,6 @@ Module.register("MMM-GyeonggiBus", {
     start: function() {
         Log.info("Starting module: " + this.name);
         var self = this
-        //Data[]
         this.loaded = false;
     },
 
@@ -31,10 +30,8 @@ Module.register("MMM-GyeonggiBus", {
 
         if (!this.loaded) {
             wrapper.innerHTML = "Loading...";
-            wrapper.className = "dimmed light small";
             return wrapper;
         }
-
         wrapper.innerHTML = 'Hello world!';
 		return wrapper;
 	},
@@ -47,14 +44,12 @@ Module.register("MMM-GyeonggiBus", {
 	notificationReceived: function(notification, payload, sender){
         switch (notification) {
             case "DOM_OBJECTS_CREATED":
-                //Update the data, after creating
                 this.sendSocketNotification("GET_BUS_DATA",
                     {
                         "config": this.config,
                         "identifier": this.identifier
                     }
                 )
-                //Start timer for update
                 var timer = setInterval(() => {
                     this.sendSocketNotification("GET_BUS_DATA",
                         {
@@ -70,17 +65,13 @@ Module.register("MMM-GyeonggiBus", {
     socketNotificationReceived: function (notification, payload) {
         switch (notification) {
             case "BUS_DATA":
-                //this.roadData = payload;
-                //this.roadData.lastUpdate = "";
                 this.loaded = true;
-                console.log("test");
+                console.log("NotificationReceived:" + notification);
                 this.updateDom();
                 break;
             case "BUS_DATA_ERROR":
                 this.data = [];
-                //ToDo Error Handling to user
                 break;
         }
     }    
-
 })
