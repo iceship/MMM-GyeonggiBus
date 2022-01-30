@@ -11,11 +11,19 @@ Module.register("MMM-GyeonggiBus", {
         serviceKey: "",
         stationId: 236000618,
         routeId: 236000222,
+        header: "3006번 버스 도착 정보",
         updateInterval: 1000 * 60 * 2, // refresh every 2 minutes, minimum 10 seconds
     },
 
     getStyles: function() {
         return ["MMM-GyeonggiBus.css"]
+    },
+
+    getHeader: function() {
+        if (this.busInfo) {
+            return "<i class='fa fa-fw fa-bus'></i> " + this.config.header;
+        }
+        return "<i class='fa fa-fw fa-bus'></i> 버스 정보";
     },
 
     start: function() {
@@ -32,51 +40,50 @@ Module.register("MMM-GyeonggiBus", {
             wrapper.innerHTML = "Loading bus info...";
             return wrapper;
         }
-        //console.log("Wow get bus info!!!!!!");
         console.log(this.busInfo);
         var busTable = document.createElement("table");
+        busTable.className = "small";
         if(this.busInfo.length > 0) {
-
             for(var t in this.busInfo) {
                 var bus = this.busInfo[t];
                 if(bus.routeId._text == this.config.routeId) {
                     var row = document.createElement("tr");
+                    row.className = "title bright";
                     busTable.appendChild(row);
 
-                    //var plateNo1Cell = document.createElement("td");
-                    //plateNo1Cell.innerHTML = bus.plateNo1._text;
-                    //row.appendChild(plateNo1Cell);
                     var predictTime1 = document.createElement("td");
-                    predictTime1.innerHTML = bus.predictTime1._text + "분 전";
+                    predictTime1.className = "arriving";
+                    predictTime1.innerHTML = bus.predictTime1._text + "분";
                     row.appendChild(predictTime1);
 
-                    var remainSeatCnt1 = document.createElement("td");
-                    remainSeatCnt1.innerHTML = bus.remainSeatCnt1._text + "빈 자리";
-                    row.appendChild(remainSeatCnt1);
-
                     var locationNo1 = document.createElement("td");
-                    locationNo1.innerHTML = bus.locationNo1._text + "정거장 전";
+                    locationNo1.innerHTML = bus.locationNo1._text + "정류장";
                     row.appendChild(locationNo1);
+
+                    var remainSeatCnt1 = document.createElement("td");
+                    remainSeatCnt1.className = "light";
+                    remainSeatCnt1.innerHTML = bus.remainSeatCnt1._text + "석";
+                    row.appendChild(remainSeatCnt1);
 
                     //console.log("2번째버스");
                     if(bus.predictTime2._text != null) {
                         var row2 = document.createElement("tr");
+                        row2.className = "dimmed"
                         busTable.appendChild(row2);
     
-                        //var plateNo1Cell = document.createElement("td");
-                        //plateNo1Cell.innerHTML = bus.plateNo1._text;
-                        //row.appendChild(plateNo1Cell);
                         var predictTime2 = document.createElement("td");
-                        predictTime2.innerHTML = bus.predictTime2._text + "분 전";
+                        predictTime2.className = "arriving";
+                        predictTime2.innerHTML = bus.predictTime2._text + "분";
                         row2.appendChild(predictTime2);
-    
-                        var remainSeatCnt2 = document.createElement("td");
-                        remainSeatCnt2.innerHTML = bus.remainSeatCnt2._text + "빈 자리";
-                        row2.appendChild(remainSeatCnt2);
-    
+
                         var locationNo2 = document.createElement("td");
-                        locationNo2.innerHTML = bus.locationNo2._text + "정거장 전";
+                        locationNo2.innerHTML = bus.locationNo2._text + "정류장";
                         row2.appendChild(locationNo2);
+
+                        var remainSeatCnt2 = document.createElement("td");
+                        remainSeatCnt2.className = "light";
+                        remainSeatCnt2.innerHTML = bus.remainSeatCnt2._text + "석";
+                        row2.appendChild(remainSeatCnt2);
                     }
                 }
             }
@@ -107,13 +114,7 @@ Module.register("MMM-GyeonggiBus", {
         }
 	},
 
-    getHeader: function() {
-        if (this.busInfo) {
-            //console.log(this.busInfo);
-            return '3006번 버스 정보';
-        }
-        return '버스 정보';
-    },
+
 
     socketNotificationReceived: function (notification, payload) {
         switch (notification) {
