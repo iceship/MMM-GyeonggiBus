@@ -20,11 +20,11 @@ Module.register("MMM-GyeonggiBus", {
 
     start: function() {
         Log.info("Starting module: " + this.name);
+        this.busInfo = [];
         var self = this
         this.loaded = false;
     },
 
-	// Override dom generator.
 	getDom: function() {
 		var wrapper = document.createElement("div");
 
@@ -32,35 +32,40 @@ Module.register("MMM-GyeonggiBus", {
             wrapper.innerHTML = "Loading...";
             return wrapper;
         }
-        wrapper.innerHTML = 'Hello world!';
+        console.log("Wow get bus info!!!!!!");
+        console.log(this.busInfo);
+        wrapper.innerHTML = "Hello world!"
 		return wrapper;
 	},
 
     getBusInfo: function() {
-        Log.info("Requesting Station Info");
-        this.sendSocketNotification("GetStationStatus", this.config);
+        Log.info("Requesting bus info");
+        this.sendSocketNotification("GET_BUS_DATA",
+            {
+                "config": this.config,
+                "identifier": this.identifier
+            }
+        )
     },
 
 	notificationReceived: function(notification, payload, sender){
         switch (notification) {
             case "DOM_OBJECTS_CREATED":
-                this.sendSocketNotification("GET_BUS_DATA",
-                    {
-                        "config": this.config,
-                        "identifier": this.identifier
-                    }
-                )
+                this.getBusInfo();
                 var timer = setInterval(() => {
-                    this.sendSocketNotification("GET_BUS_DATA",
-                        {
-                            "config": this.config,
-                            "identifier": this.identifier
-                        }
-                    )
+                        this.getBusInfo();
                 }, this.config.updateInterval);
                 break;
         }
 	},
+
+    getHeader: function() {
+        if (this.busInfo) {
+            console.log(this.busInfo);
+            return '정보가 있네? 3006번 버스 정보';
+        }
+        return '3006번 버스 정보';
+    },
 
     socketNotificationReceived: function (notification, payload) {
         switch (notification) {
@@ -68,10 +73,13 @@ Module.register("MMM-GyeonggiBus", {
                 this.loaded = true;
                 console.log("NotificationReceived:" + notification);
                 console.log(payload);
+                console.log(this.busInfo);
+                this.busInfo = payload;
+                //this.updateDom();
                 this.updateDom();
                 break;
             case "BUS_DATA_ERROR":
-                this.data = [];
+                //this.data = [];
                 break;
         }
     }    

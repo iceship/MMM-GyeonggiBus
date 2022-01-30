@@ -34,7 +34,10 @@ module.exports = NodeHelper.create({
             console.log('Status', response.statusCode);
             console.log('Headers', JSON.stringify(response.headers));
             //console.log('Reponse received', body);
-            self.sendSocketNotification("BUS_DATA", body);
+            var result = convert.xml2json(body, { compact: true, spaces: 4 });
+            var data = JSON.parse(result).response.body.items.item;
+            console.log('Reponse received Data:', data);
+            self.sendSocketNotification("BUS_DATA", data);
         });
     },
 
