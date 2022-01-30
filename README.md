@@ -6,6 +6,9 @@ Additional Module for MagicMirror² https://github.com/MichMich/MagicMirror
 # Module: MMM-GyeonggiBus
 Magic Mirror Module for Gyeonggi-Do, South Korea, bus information. Returns real-time info about a SPECIFIC bus stop and a SPECIFIC bus route.
 
+![GyeonggiBusModule](https://user-images.githubusercontent.com/8663339/151705306-d9d0878b-396c-4343-90c4-f93331717b8f.png)
+![GyeonggiBusModuleMain](https://user-images.githubusercontent.com/8663339/151705326-a0ef7063-ae05-4236-b014-d35e597c28f9.png)
+
 ## Using the module
 Git clone from this repository into the modules sub-directory of the Magic Mirror installation, change directory into the newly cloned code and then run npm install.
 
