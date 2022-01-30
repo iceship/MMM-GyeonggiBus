@@ -29,12 +29,60 @@ Module.register("MMM-GyeonggiBus", {
 		var wrapper = document.createElement("div");
 
         if (!this.loaded) {
-            wrapper.innerHTML = "Loading...";
+            wrapper.innerHTML = "Loading bus info...";
             return wrapper;
         }
-        console.log("Wow get bus info!!!!!!");
+        //console.log("Wow get bus info!!!!!!");
         console.log(this.busInfo);
-        wrapper.innerHTML = "Hello world!"
+        var busTable = document.createElement("table");
+        if(this.busInfo.length > 0) {
+
+            for(var t in this.busInfo) {
+                var bus = this.busInfo[t];
+                if(bus.routeId._text == this.config.routeId) {
+                    var row = document.createElement("tr");
+                    busTable.appendChild(row);
+
+                    //var plateNo1Cell = document.createElement("td");
+                    //plateNo1Cell.innerHTML = bus.plateNo1._text;
+                    //row.appendChild(plateNo1Cell);
+                    var predictTime1 = document.createElement("td");
+                    predictTime1.innerHTML = bus.predictTime1._text + "분 전";
+                    row.appendChild(predictTime1);
+
+                    var remainSeatCnt1 = document.createElement("td");
+                    remainSeatCnt1.innerHTML = bus.remainSeatCnt1._text + "빈 자리";
+                    row.appendChild(remainSeatCnt1);
+
+                    var locationNo1 = document.createElement("td");
+                    locationNo1.innerHTML = bus.locationNo1._text + "정거장 전";
+                    row.appendChild(locationNo1);
+
+                    //console.log("2번째버스");
+                    if(bus.predictTime2._text != null) {
+                        var row2 = document.createElement("tr");
+                        busTable.appendChild(row2);
+    
+                        //var plateNo1Cell = document.createElement("td");
+                        //plateNo1Cell.innerHTML = bus.plateNo1._text;
+                        //row.appendChild(plateNo1Cell);
+                        var predictTime2 = document.createElement("td");
+                        predictTime2.innerHTML = bus.predictTime2._text + "분 전";
+                        row2.appendChild(predictTime2);
+    
+                        var remainSeatCnt2 = document.createElement("td");
+                        remainSeatCnt2.innerHTML = bus.remainSeatCnt2._text + "빈 자리";
+                        row2.appendChild(remainSeatCnt2);
+    
+                        var locationNo2 = document.createElement("td");
+                        locationNo2.innerHTML = bus.locationNo2._text + "정거장 전";
+                        row2.appendChild(locationNo2);
+                    }
+                }
+            }
+        }
+
+        wrapper.appendChild(busTable);
 		return wrapper;
 	},
 
@@ -61,10 +109,10 @@ Module.register("MMM-GyeonggiBus", {
 
     getHeader: function() {
         if (this.busInfo) {
-            console.log(this.busInfo);
-            return '정보가 있네? 3006번 버스 정보';
+            //console.log(this.busInfo);
+            return '3006번 버스 정보';
         }
-        return '3006번 버스 정보';
+        return '버스 정보';
     },
 
     socketNotificationReceived: function (notification, payload) {
@@ -72,8 +120,8 @@ Module.register("MMM-GyeonggiBus", {
             case "BUS_DATA":
                 this.loaded = true;
                 console.log("NotificationReceived:" + notification);
-                console.log(payload);
-                console.log(this.busInfo);
+                //console.log(payload);
+                //console.log(this.busInfo);
                 this.busInfo = payload;
                 //this.updateDom();
                 this.updateDom();
