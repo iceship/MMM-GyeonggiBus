@@ -26,9 +26,15 @@ module.exports = NodeHelper.create({
             url: url,
             method: 'GET'
         }, function (error, response, body) {
-            var result = convert.xml2json(body, { compact: true, spaces: 4 });
-            var data = JSON.parse(result).response.msgBody.busArrivalList;
-            self.sendSocketNotification("BUS_DATA", data);
+            if(!error & response.statusCode == 200){
+                var result = convert.xml2json(body, { compact: true, spaces: 4 });
+                if(JSON.parse(result).response.msgBody == null) {
+                    self.sendSocketNotification("BUS_DATA_ERROR", JSON.parse(result).response);
+                } else {
+                    var data = JSON.parse(result).response.msgBody.busArrivalList;
+                    self.sendSocketNotification("BUS_DATA", data);
+                }
+            }
         });
     },
 

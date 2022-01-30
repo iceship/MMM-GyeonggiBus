@@ -37,9 +37,10 @@ Module.register("MMM-GyeonggiBus", {
 		var wrapper = document.createElement("div");
 
         if (!this.loaded) {
-            wrapper.innerHTML = "Loading bus info...";
+            //wrapper.innerHTML = "Loading bus info...";
             return wrapper;
         }
+
         console.log(this.busInfo);
         var busTable = document.createElement("table");
         busTable.className = "small";
@@ -122,6 +123,7 @@ Module.register("MMM-GyeonggiBus", {
                 this.updateDom();
                 break;
             case "BUS_DATA_ERROR":
+                this.updateDom();
                 break;
         }
     }    
