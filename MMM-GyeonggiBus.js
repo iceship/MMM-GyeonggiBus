@@ -65,7 +65,6 @@ Module.register("MMM-GyeonggiBus", {
                     remainSeatCnt1.innerHTML = bus.remainSeatCnt1._text + "석";
                     row.appendChild(remainSeatCnt1);
 
-                    //console.log("2번째버스");
                     if(bus.predictTime2._text != null) {
                         var row2 = document.createElement("tr");
                         row2.className = "dimmed"
@@ -114,21 +113,15 @@ Module.register("MMM-GyeonggiBus", {
         }
 	},
 
-
-
     socketNotificationReceived: function (notification, payload) {
         switch (notification) {
             case "BUS_DATA":
                 this.loaded = true;
                 console.log("NotificationReceived:" + notification);
-                //console.log(payload);
-                //console.log(this.busInfo);
                 this.busInfo = payload;
-                //this.updateDom();
                 this.updateDom();
                 break;
             case "BUS_DATA_ERROR":
-                //this.data = [];
                 break;
         }
     }    
