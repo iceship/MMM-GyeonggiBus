@@ -38,12 +38,9 @@ To use this module, add it to the modules array in the config/config.js file:
 ## Configuration Options
 |Option|Description|
 | --- | --- |
-|apiBase|GyeonggiBus base API    
-http://apis.data.go.kr/6410000/busarrivalservice/getBusArrivalList|
-|serviceKey|Get key from    
-https://www.data.go.kr/data/15080346/openapi.do|
-|stationId|Get StationId from    
-https://data.gg.go.kr/portal/data/service/selectServicePage.do?infId=GDKWAGWYRKJYIRVX110226832213&infSeq=1|
+|apiBase|GyeonggiBus base API http://apis.data.go.kr/6410000/busarrivalservice/getBusArrivalList|
+|serviceKey|Get key from https://www.data.go.kr/data/15080346/openapi.do|
+|stationId|Get StationId from https://data.gg.go.kr/portal/data/service/selectServicePage.do?infId=GDKWAGWYRKJYIRVX110226832213&infSeq=1|
 |routeId|"버스 노선 조회 서비스"의 "노선번호목록조회" 기능으로 버스 번호를 입력해 해당 버스 번호(노선 번호의) routeId를 얻는다.|
 |header|Title Info|
 |updateInterval|1000 * 60 * 1  for 1minute.|
@@ -54,4 +51,3 @@ This is for Gyeonggi-Do Bus Information.
 ## ServiceKey
 Sing up for account here: https://www.data.go.kr/data/15080346/openapi.do
 To get a ServiceKey 
-
