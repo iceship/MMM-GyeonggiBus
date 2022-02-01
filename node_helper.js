@@ -16,7 +16,6 @@ module.exports = NodeHelper.create({
         }
     },
 
-
     getData: async function (payload) {
         let self = this;
         var queryParams = '?' + encodeURIComponent('serviceKey') + '=' + payload.config.serviceKey; /* Service Key*/
@@ -28,11 +27,12 @@ module.exports = NodeHelper.create({
         }, function (error, response, body) {
             if(!error & response.statusCode == 200){
                 var result = convert.xml2json(body, { compact: true, spaces: 4 });
-                if(JSON.parse(result).response.msgBody == null) {
-                    self.sendSocketNotification("BUS_DATA_ERROR", JSON.parse(result).response);
+                var data = JSON.parse(result).response
+                if(data.hasOwnProperty("msgBody") && Array.isArray(data.msgBody.busArrivalList)) {
+                    var busArrivalList = data.msgBody.busArrivalList;
+                    self.sendSocketNotification("BUS_DATA", busArrivalList);
                 } else {
-                    var data = JSON.parse(result).response.msgBody.busArrivalList;
-                    self.sendSocketNotification("BUS_DATA", data);
+                    self.sendSocketNotification("BUS_DATA_ERROR", data);
                 }
             }
         });

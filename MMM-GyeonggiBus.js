@@ -40,8 +40,6 @@ Module.register("MMM-GyeonggiBus", {
             //wrapper.innerHTML = "Loading bus info...";
             return wrapper;
         }
-
-        console.log(this.busInfo);
         var busTable = document.createElement("table");
         busTable.className = "small";
         if(this.busInfo.length > 0) {
@@ -66,7 +64,7 @@ Module.register("MMM-GyeonggiBus", {
                     remainSeatCnt1.innerHTML = bus.remainSeatCnt1._text + "석";
                     row.appendChild(remainSeatCnt1);
 
-                    if(bus.predictTime2._text != null) {
+                    if(bus.predictTime2.hasOwnProperty("_text")) {
                         var row2 = document.createElement("tr");
                         row2.className = "dimmed"
                         busTable.appendChild(row2);
@@ -88,7 +86,6 @@ Module.register("MMM-GyeonggiBus", {
                 }
             }
         }
-
         wrapper.appendChild(busTable);
 		return wrapper;
 	},
