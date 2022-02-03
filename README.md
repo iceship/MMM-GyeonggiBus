@@ -49,5 +49,5 @@ To use this module, add it to the modules array in the config/config.js file:
 This is for Gyeonggi-Do Bus Information.
 
 ## ServiceKey
-Sing up for account here: https://www.data.go.kr/data/15080346/openapi.do
+Sign up for account here: https://www.data.go.kr/data/15080346/openapi.do
 To get a ServiceKey 
